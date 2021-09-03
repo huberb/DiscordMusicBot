@@ -1,6 +1,7 @@
 import discord
-from discord.ext import commands
 from dotenv import load_dotenv
+from discord.ext import commands
+from discord.ext.commands import CommandNotFound
 
 import os
 
@@ -28,6 +29,11 @@ class DiscordBot(commands.Bot):
     async def on_ready(self):
         print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\n')
         print("Successfully logged in and booted...!")
+
+    async def on_command_error(self, ctx, error):
+        if isinstance(error, CommandNotFound):
+            return ctx.send("your command is crap. don't know what to do")
+        raise error
 
 
 if __name__ == "__main__":
