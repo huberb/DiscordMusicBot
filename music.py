@@ -259,16 +259,17 @@ class Music(commands.Cog):
         """
         await ctx.trigger_typing()
 
+        vc = ctx.voice_client
+        if not vc:
+            await ctx.invoke(self.connect_)
+
         try:
             channel = ctx.author.voice.channel
+            if ctx.voice_client.channel != channel:
+                raise AttributeError
         except AttributeError:
             await ctx.send("stop trolling bro! you're on a list now")
             raise InvalidVoiceChannel('No channel to join. Please either specify a valid channel or join one.')
-
-        vc = ctx.voice_client
-
-        if not vc:
-            await ctx.invoke(self.connect_)
 
         player = self.get_player(ctx)
 
