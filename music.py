@@ -211,7 +211,7 @@ class Music(commands.Cog):
 
         return player
 
-    @commands.command(name='join', aliases=['connect', 'j'], description="connects to voice")
+    @commands.command(name='join', aliases=['connect', 'j', 'spawn'], description="connects to voice")
     async def connect_(self, ctx, *, channel: discord.VoiceChannel=None):
         """Connect to voice.
         Parameters
